@@ -26,7 +26,7 @@ const retrieveNotifications = async (req, res) => {
 
 
     let notificationArray = notification.split(" ");
-    let notificationEmails= [];
+    let notificationEmails = [];
 
     notificationArray.forEach(email => {
         if (email.indexOf('@') === 0){

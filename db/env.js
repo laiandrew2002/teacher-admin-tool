@@ -2,7 +2,7 @@
 const env = {
     database: 'school',
     username: 'root',
-    password: 'password',
+    password: 'secretpassword',
     host: 'localhost',
     port: '3306',
     dialect: 'mysql',
