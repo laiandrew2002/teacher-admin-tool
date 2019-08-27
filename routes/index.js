@@ -7,4 +7,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Teacher Administrative Tool' });
 });
 
-module.exports = router;
+module.exports = app => {
+  app.use("/", router);
+};

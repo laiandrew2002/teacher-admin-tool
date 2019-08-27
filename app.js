@@ -20,9 +20,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/api', apiRouter);
+// app.use('/', indexRouter);
+// app.use('/api', apiRouter);
 
+indexRouter(app);
+apiRouter(app);
 
 db.sequelize.sync({force: false}).then(() => {
   console.log('Tables created if do not exist }');

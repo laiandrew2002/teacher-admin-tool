@@ -15,4 +15,6 @@ router.post('/suspend', suspendController.suspendStudent);
 
 router.post('/retrievefornotifications', retrievenotificationsController.retrieveNotifications);
 
-module.exports = router;
+module.exports = app => {
+    app.use("/api", router);
+  };

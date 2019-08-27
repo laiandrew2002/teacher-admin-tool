@@ -1,20 +1,51 @@
 
-const env = require('./env.js');
+//const env = require('./env.js');
+
+const env = require("./env.js"); // remove this and use process.env
+
+// call the variables in .env by the following
+const {
+  DATABASE,
+  DBUSERNAME,
+  DBPASSWORD,
+  SQLHOST,
+  SQLPORT,
+  DIALECT,
+  TIMEZONE,
+  DBPOOL_MAX,
+  DBPOOL_MIN,
+  DBPOOL_ACQUIRE,
+  DBPOOL_IDLE
+} = process.env;
 
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize(env.database, env.username, env.password, {
-  host: env.host,
-  port: env.port,
-  dialect: env.dialect,
+const sequelize = new Sequelize(DATABASE, DBUSERNAME, DBPASSWORD, {
+  host: SQLHOST,
+  port: SQLPORT,
+  dialect: DIALECT,
   operatorsAliases: false,
-  timezone: env.timezone,
+  timezone: TIMEZONE,
   pool: {
-    max: env.max,
-    min: env.pool.min,
-    acquire: env.pool.acquire,
-    idle: env.pool.idle
+    max: 5,
+    min: 0,
+    acquire: DBPOOL_ACQUIRE,
+    idle: DBPOOL_IDLE
   }
 });
+
+// const sequelize = new Sequelize(env.database, env.username, env.password, {
+//   host: env.host,
+//   port: env.port,
+//   dialect: env.dialect,
+//   operatorsAliases: false,
+//   timezone: env.timezone,
+//   pool: {
+//     max: env.max,
+//     min: env.pool.min,
+//     acquire: env.pool.acquire,
+//     idle: env.pool.idle
+//   }
+// });
 
 const db = {};
 
