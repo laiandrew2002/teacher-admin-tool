@@ -6,7 +6,7 @@ const suspendStudent = async (req, res) => {
     // let teacherEmail = req.body.teacher;
     let studentsEmail = req.body.student;
     
-    if (!studentsEmail.length) {
+    if (!studentsEmail) {
         return res.status(404).jsonp({"success": false, "message": "Student Not Found"});
     }
     

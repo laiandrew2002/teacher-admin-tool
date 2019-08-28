@@ -58,7 +58,7 @@ const retrieveNotifications = async (req, res) => {
             attributes: ['id', 'email']
         });
 
-        console.log("Students: ", students)
+        //console.log("Students: ", students)
         let studentsArray = [];
 
         if(students.length > 0) {

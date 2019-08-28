@@ -5,8 +5,7 @@ const Teacher = db.teacher;
 const Teacher_Student = db.teacher_student;
 
 const register = async (req, res) => {
-    console.log(req.body)
-    //try{
+    
     let teacherEmail = req.body.teacher;
     let studentsEmails = req.body.students;
 
