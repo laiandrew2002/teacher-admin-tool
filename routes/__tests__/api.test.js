@@ -1,11 +1,14 @@
 
 
 const express = require("express");
+const bodyParser = require('body-parser');
 const request = require("supertest");
 const app = express();
 const server = require("../api");
 
-server(app)
+server(app.use(bodyParser.json()))
+
+
 
 describe("Common Student Routing Test", () => {
   beforeAll(() => {
@@ -68,36 +71,37 @@ describe("Register Routing Test", () => {
   })
 
   
-  // test("Register students test", async (done) => {
-  //   let payload = {
-  //     "teacher": "teacherhaha@gmail.com",
-  //     "students": [
-  //         "studenteshan@gmail.com",
-  //         "studentmel@gmail.com",
-  //         "studentpam@gmail.com"
-  //       ]
-  //   }
-  //   const res = await request(app).post("/api/register").send(payload)
-  //   expect(res.status).toBe(204);
-  //   done()
-  // });
-
-  // test("error1", async () => {
-  //   let payload = {
-  //     "teacher": "",
-  //     "students": [
-  //         "studenteshan@gmail.com",
-  //         "studentmel@gmail.com",
-  //         "studentpam@gmail.com"
-  //       ]
-  //   }
-  //   expect.assertions(3);
-  //   const res = await request(app).post("/api/register").send(payload)
-  //   expect(res.status).toBe(404)
-  //   expect(res.body).toHaveProperty('success', false)
-  //   expect(res.body).toHaveProperty('message', "Teacher Email Not Found")
+  test("Register students test", async (done) => {
+    let payload = {
+      "teacher": "teacherhaha@gmail.com",
+      "students": [
+          "studenteshan@gmail.com",
+          "studentmel@gmail.com",
+          "studentpam@gmail.com"
+        ]
+    }
+    const res = await request(app).post("/api/register").send(payload)
     
-  // })
+    expect(res.status).toBe(204);
+    done()
+  });
+
+  test("error1", async () => {
+    let payload = {
+      "teacher": "",
+      "students": [
+          "studenteshan@gmail.com",
+          "studentmel@gmail.com",
+          "studentpam@gmail.com"
+        ]
+    }
+    expect.assertions(3);
+    const res = await request(app).post("/api/register").send(payload)
+    expect(res.status).toBe(404)
+    expect(res.body).toHaveProperty('success', false)
+    expect(res.body).toHaveProperty('message', "Teacher Email Not Found")
+    
+  })
 
   test("error2", async () => {
     let payload = {
@@ -108,10 +112,10 @@ describe("Register Routing Test", () => {
           "studentpam@gmail.com"
         ]
     }
-    expect.assertions(0);
+    expect.assertions(3);
     const res = await request(app).post("/api/register").send({
-      teacher: "123abc",
-      students: [
+      "teacher": "123abc",
+      "students": [
           "studenteshan@gmail.com",
           "studentmel@gmail.com",
           "studentpam@gmail.com"
