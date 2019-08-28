@@ -9,12 +9,12 @@ const Teacher_Student = db.teacher_student;
 const commonStudents = async (req, res) => {
 
     let teacherEmails = req.query.teacher;
-    console.log(teacherEmails)
+    //console.log(teacherEmails)
     //let result = await errorHandler.validateEmail(teacherEmail, res)
     
     if (!teacherEmails) {
-        res.status(404).jsonp({"success": false, "message": "Teacher Email Not Found"});;
-        return;
+        return res.status(404).jsonp({"success": false, "message": "Teacher Email Not Found"});;
+        
     }
 
     if(!Array.isArray(teacherEmails)){
@@ -26,13 +26,12 @@ const commonStudents = async (req, res) => {
     if(teacherEmails.length > 0){
         teacherEmails.forEach((email, i) => {
             if (!validateEmail(email)) {
-                res.status(404).jsonp({"success": false, "message": "Teacher Email Incorrect Format"});
-                return;
+                return res.status(404).jsonp({"success": false, "message": "Teacher Email Incorrect Format"});
             }
         });
     }
-    try{
 
+    try{
         for(i in teacherEmails){
             const students = await Student.findAll({
                 include: [
@@ -49,22 +48,22 @@ const commonStudents = async (req, res) => {
             //console.log("result: ", students.length)
             let studentArray = students.map(e => e.dataValues.email);
             studentArrays.push(studentArray);
+            //console.log("array: ", studentArrays)
+        
+            //Find the common students among teachers
+            const commonStudentArray =  await studentArrays.shift().filter(v => {
+                return studentArrays.every(a => {
+                    return a.indexOf(v) !== -1;
+                });
+            });
+        
+            return res.jsonp({students: commonStudentArray});
         }
     } catch(error){
-        console.log(error)
+        //console.log(error)
     }
 
     
-    console.log("array: ", studentArrays)
-
-    //Find the common students among teachers
-    const commonStudentArray =  studentArrays.shift().filter(v => {
-        return studentArrays.every(a => {
-            return a.indexOf(v) !== -1;
-        });
-    });
-
-    res.json({students: commonStudentArray});
 }
 
 module.exports = {

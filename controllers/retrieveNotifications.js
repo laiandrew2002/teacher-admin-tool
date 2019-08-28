@@ -10,18 +10,15 @@ const retrieveNotifications = async (req, res) => {
     let notification = req.body.notification;
 
     if (!teacherEmail) {
-        res.status(404).jsonp({"success": false, "message": "Teacher Email Not Found"});;
-        return;
+        return res.status(404).jsonp({"success": false, "message": "Teacher Email Not Found"});;
     }
 
     if (!validateEmail(teacherEmail)) {
-        res.status(404).jsonp({"success": false, "message": "Teacher Email Incorrect Format"});
-        return;
+        return res.status(404).jsonp({"success": false, "message": "Teacher Email Incorrect Format"});
     }
 
     if (!notification) {
-        res.status(404).jsonp({"success": false, "message": "Notification Not Found"});
-        return;
+        return res.status(404).jsonp({"success": false, "message": "Notification Not Found"});
     }
 
 
@@ -42,7 +39,7 @@ const retrieveNotifications = async (req, res) => {
             }
         );
         if(!isRegister){
-            res.status(404).jsonp({"success": false, "message": "Teacher Email Not Registered"});
+            return res.status(404).jsonp({"success": false, "message": "Teacher Email Not Registered"});
         }
 
         const students = await Student.findAll({
@@ -74,12 +71,12 @@ const retrieveNotifications = async (req, res) => {
         //Eliminate duplicated emails
         const notificationStudents = studentsArray.filter((e,i) => studentsArray.indexOf(e) === i);
 
-        res.jsonp({
+        return res.jsonp({
             students: notificationStudents
         });
 
     } catch(error) {
-        console.error(error)
+        //console.error(error)
     }
 }
 

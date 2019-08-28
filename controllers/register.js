@@ -9,18 +9,15 @@ const register = async (req, res) => {
     let studentsEmails = req.body.students;
 
     if (!teacherEmail) {
-        res.status(404).jsonp({"success": false, "message": "Teacher Email Not Found"});;
-        return;
+        return res.status(404).jsonp({"success": false, "message": "Teacher Email Not Found"});;
     }
 
     if (!validateEmail(teacherEmail)) {
-        res.status(404).jsonp({"success": false, "message": "Teacher Email Incorrect Format"});
-        return;
+        return res.status(404).jsonp({"success": false, "message": "Teacher Email Incorrect Format"});
     }
 
     if (!studentsEmails.length) {
-        res.status(404).jsonp({"success": false, "message": "Student Not Found"});
-        return;
+        return res.status(404).jsonp({"success": false, "message": "Student Not Found"});
     }
 
     let studentNamesArray = [];
@@ -29,7 +26,7 @@ const register = async (req, res) => {
     if(studentsEmails.length > 0){
         studentsEmails.forEach((e,i) => {
             if (!validateEmail(e)) {
-                res.status(404).jsonp({"success": false, "message": "Student Email Incorrect Format"});
+                return res.status(404).jsonp({"success": false, "message": "Student Email Incorrect Format"});
             }
             let studentName  = capitalizeFirstLetter(e.split('@')[0]);
             let studentEmail = e;
@@ -56,7 +53,7 @@ const register = async (req, res) => {
                 defaults: { email: studentEmailsArray[i], is_suspend: 0 }
             })
 
-            console.log("insertStudent: ", insertStudent[0].dataValues.id)
+            //console.log("insertStudent: ", insertStudent[0].dataValues.id)
 
             const studentId = insertStudent[0].dataValues.id
             const insertrelation = await Teacher_Student.findOrCreate({
@@ -66,14 +63,14 @@ const register = async (req, res) => {
                 }
             })
             //console.log("insert: ", insertrelation)
+            return res.status(204).json()
             
         }
 
     } catch (error) {
-        console.log(error)
+        //console.log(error)
     }
     
-    res.status(204).send()
 }
 
 module.exports = {

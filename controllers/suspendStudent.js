@@ -7,13 +7,11 @@ const suspendStudent = async (req, res) => {
     let studentsEmail = req.body.student;
     
     if (!studentsEmail.length) {
-        res.status(404).jsonp({"success": false, "message": "Student Not Found"});
-        return;
+        return res.status(404).jsonp({"success": false, "message": "Student Not Found"});
     }
     
     if (!validateEmail(studentsEmail)) {
-        res.status(404).jsonp({"success": false, "message": "Student Email Incorrect Format"});
-        return;
+        return res.status(404).jsonp({"success": false, "message": "Student Email Incorrect Format"});
     }
     
     try{
@@ -23,16 +21,16 @@ const suspendStudent = async (req, res) => {
             }
         )
         if(!isRegister){
-            res.status(404).jsonp({"success": false, "message": "Student Email Not Registered"});
+            return res.status(404).jsonp({"success": false, "message": "Student Email Not Registered"});
         }
         const result = await Student.update(
             {is_suspend: 1},
             {where: {email: studentsEmail}}
         )
-        res.status(204).send()
-        console.log("result: ",result)
+        return res.status(204).json()
+        //console.log("result: ",result)
     }catch(err){
-        console.log(err)
+        //console.log(err)
     }
     
 }
