@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const request = require("supertest");
 const app = express();
 const server = require("../api");
-
+require('dotenv').config();
 server(app.use(bodyParser.json()))
 
 
@@ -25,24 +25,27 @@ describe("GET /api/commonstudents - Routing Test", () => {
   it("should return the students registered under teachermel@gmail.com", async (done) => {
     const res = await request(app).get("/api/commonstudents?teacher=teachermel%40gmail.com");
     expect(res.status).toBe(200);
-    expect(res.body).toHaveProperty('students', 
+    expect(typeof res.body).toBe('object');
+    expect(res.body).toEqual({
+      'students': 
     [
       "studentalek@example.com",
       "studentpam@example.com",
       "studenthaha@gmail.com",
       "studenteshan@example.com"
-    ]);
+    ]});
     done();
   });
 
   it("should return the students registered under teachermel@gmail.com and also teachermolo@gmail.com", async (done) => {
     const res = await request(app).get("/api/commonstudents?teacher=teachermolo%40gmail.com&teacher=teachermel%40gmail.com");
     expect(res.status).toBe(200);
-    expect(res.body).toHaveProperty('students', 
-    [
-      "studenteshan@example.com",
-      "studenthon@example.com"
-    ]);
+    expect(typeof res.body).toBe('object');
+    expect(res.body).toEqual({
+      'students': [
+        "studenteshan@example.com",
+        "studenthon@example.com"
+      ]});
     done();
   });
 
@@ -186,13 +189,15 @@ describe("POST /api/retrievefornotifications Routing Test", () => {
     };
     const res = await request(app).post("/api/retrievefornotifications").send(payload);
     expect(res.status).toBe(200);
-    expect(res.body).toHaveProperty('students', [
-      "studentalek@example.com",
-      "studentpam@example.com",
-      "studenthaha@gmail.com",
-      "studentasdasd@gmail.com",
-      "studentdaniel@gmail.com"
-    ]);
+    expect(typeof res.body).toBe('object');
+    expect(res.body).toEqual({
+      'students': [
+        "studentalek@example.com",
+        "studentpam@example.com",
+        "studenthaha@gmail.com",
+        "studentasdasd@gmail.com",
+        "studentdaniel@gmail.com"
+      ]});
     done();
   });
 

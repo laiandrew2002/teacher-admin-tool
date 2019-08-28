@@ -6,7 +6,17 @@ const validateEmail = email => {
     return regex.test(String(email).toLowerCase());
 };
 
+const removeDuplicate = array => array.filter((e,i) => array.indexOf(e) === i);
+
+const commonSet = arrays => arrays.shift().filter(v => {
+    return arrays.every(a => {
+        return a.indexOf(v) !== -1;
+    });
+});
+
 module.exports = {
     capitalizeFirstLetter,
-    validateEmail
+    validateEmail,
+    removeDuplicate,
+    commonSet
 }

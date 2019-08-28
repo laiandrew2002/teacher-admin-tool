@@ -1,4 +1,4 @@
-const { capitalizeFirstLetter,  validateEmail } = require('../utils/index');
+const { capitalizeFirstLetter,  validateEmail, commonSet } = require('../utils/index');
 const { errorHandler } = require('../error/index')
 const db = require('../db/db.config.js');
 const Student = db.student;
@@ -14,7 +14,6 @@ const commonStudents = async (req, res) => {
     
     if (!teacherEmails) {
         return res.status(404).jsonp({"success": false, "message": "Teacher Email Not Found"});;
-        
     }
 
     if(!Array.isArray(teacherEmails)){
@@ -51,11 +50,7 @@ const commonStudents = async (req, res) => {
             //console.log("array: ", studentArrays)
         
             //Find the common students among teachers
-            const commonStudentArray =  await studentArrays.shift().filter(v => {
-                return studentArrays.every(a => {
-                    return a.indexOf(v) !== -1;
-                });
-            });
+            const commonStudentArray = await commonSet(studentArrays);
         
             return res.jsonp({students: commonStudentArray});
         }

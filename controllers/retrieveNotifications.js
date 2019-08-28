@@ -1,4 +1,4 @@
-const { capitalizeFirstLetter,  validateEmail } = require('../utils/index');
+const { capitalizeFirstLetter,  validateEmail, removeDuplicate } = require('../utils/index');
 const db = require('../db/db.config.js');
 const Student = db.student;
 const Teacher = db.teacher;
@@ -69,7 +69,7 @@ const retrieveNotifications = async (req, res) => {
         }
 
         //Eliminate duplicated emails
-        const notificationStudents = studentsArray.filter((e,i) => studentsArray.indexOf(e) === i);
+        const notificationStudents = await removeDuplicate(studentsArray);
 
         return res.jsonp({
             students: notificationStudents

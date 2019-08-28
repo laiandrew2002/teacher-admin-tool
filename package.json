@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "test": "jest --watchAll *.test.js"
+    "test": "NODE_ENV=development && jest --watchAll *.test.js"
   },
   "author": "Andrew Lai",
   "jest": {

@@ -35,18 +35,16 @@ const register = async (req, res) => {
             studentEmailsArray.push(studentEmail);
         });
     }
-    //console.log(studentNamesArray)
-    //console.log(studentEmailsArray)
 
     let teacherName = capitalizeFirstLetter(teacherEmail.split('@')[0]);
     try{
         const insertTeacher = await Teacher.findOrCreate({
             where:{name: teacherName,},
             defaults:{email: teacherEmail}
-        })
+        });
 
-            console.log("insertTeacher: ", insertTeacher[0].dataValues.id)
-            const teacherId = insertTeacher[0].dataValues.id
+            //console.log("insertTeacher: ", insertTeacher[0].dataValues.id)
+            const teacherId = insertTeacher[0].dataValues.id;
         
         for( i in studentNamesArray ) {
             const insertStudent = await Student.findOrCreate({
@@ -56,22 +54,21 @@ const register = async (req, res) => {
 
             //console.log("insertStudent: ", insertStudent[0].dataValues.id)
 
-            const studentId = insertStudent[0].dataValues.id
+            const studentId = insertStudent[0].dataValues.id;
             const insertrelation = await Teacher_Student.findOrCreate({
                 where: {
                     teachers_id: teacherId,
                     students_id: studentId
                 }
-            })
+            });
             //console.log("insert: ", insertrelation)
-            return res.status(204).json()
+            return res.status(204).jsonp();
             
         }
 
     } catch (error) {
         //console.log(error)
     }
-    
 }
 
 module.exports = {

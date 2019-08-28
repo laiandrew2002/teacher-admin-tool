@@ -3,7 +3,7 @@ const db = require('../db/db.config.js');
 const Student = db.student;
 
 const suspendStudent = async (req, res) => {
-    // let teacherEmail = req.body.teacher;
+
     let studentsEmail = req.body.student;
     
     if (!studentsEmail) {
@@ -27,12 +27,11 @@ const suspendStudent = async (req, res) => {
             {is_suspend: 1},
             {where: {email: studentsEmail}}
         )
-        return res.status(204).json()
-        //console.log("result: ",result)
+        return res.status(204).jsonp()
+        
     }catch(err){
         //console.log(err)
     }
-    
 }
 
 module.exports = {
