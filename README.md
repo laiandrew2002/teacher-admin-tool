@@ -84,7 +84,7 @@ npm test
 
 #### MySQL DB Schema Design
 
-
+![](https://github.com/laiandrew2002/teacher-admin-tool/blob/master/admin-tool-schema.PNG)
 
 ## API Routes:
 
