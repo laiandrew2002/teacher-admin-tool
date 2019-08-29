@@ -2,7 +2,6 @@ const env = require("./env.js"); // remove this and use process.env
 
 // call the variables in .env by the following
 
-
 const Sequelize = require('sequelize');
 // const sequelize = new Sequelize(DATABASE, DBUSERNAME, DBPASSWORD, {
 //   host: SQLHOST,
@@ -36,7 +35,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-// //Models/tables
+//Models/tables
 db.teacher = require('../model/teacher.model.js')(sequelize, Sequelize);
 db.student = require('../model/student.model.js')(sequelize, Sequelize);
 db.teacher_student = require('../model/teacher_student.model.js')(sequelize, Sequelize);

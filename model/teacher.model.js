@@ -1,3 +1,4 @@
+'use strict';
 module.exports = (sequelize, Sequelize) => {
 	const teacher = sequelize.define('teacher', {
 	  name: {
@@ -17,7 +18,6 @@ module.exports = (sequelize, Sequelize) => {
 			onDelete: 'CASCADE'
 		})
 	}
-	
 	return teacher;
 }
 
