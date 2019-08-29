@@ -166,7 +166,7 @@ Request Body:
 ```
 {
       "teacher": "teachermel@gmail.com",
-      "notification": "Hello Students! @studentasdasd@gmail.com and 			@studentdaniel@gmail.com"
+      "notification": "Hello Students! @studentasdasd@gmail.com @studentdaniel@gmail.com"
 }
 ```
 
