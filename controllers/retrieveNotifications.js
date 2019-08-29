@@ -29,7 +29,6 @@ const retrieveNotifications = async (req, res) => {
       notificationEmails.push(email.slice(1));
     }
   });
-  //console.log(notificationEmails)
 
   try{
     const isRegister = await Teacher.findOne(
@@ -57,7 +56,7 @@ const retrieveNotifications = async (req, res) => {
     let studentsArray = [];
 
     if(students.length > 0) {
-      for(i in students){
+      for(i in students) {
         studentsArray.push(students[i].dataValues.email);
       }
       studentsArray.push(...notificationEmails);
@@ -70,10 +69,10 @@ const retrieveNotifications = async (req, res) => {
       students: notificationStudents
     });
   } catch(error) {
-    //console.error(error)
+    throw error;
   }
 }
 
 module.exports = {
-    retrieveNotifications
+  retrieveNotifications
 }

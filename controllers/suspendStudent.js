@@ -26,14 +26,13 @@ const suspendStudent = async (req, res) => {
     const update = await Student.update(
       { is_suspend: 1 },
       { where: { email: studentsEmail } }
-    )
+    );
     return res.status(204).jsonp();
-    
-  }catch(err){
-    //console.log(err)
+  }catch(error) {
+    throw error;
   }
 }
 
 module.exports = {
-    suspendStudent
+  suspendStudent
 }

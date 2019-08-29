@@ -43,8 +43,7 @@ describe("GET /api/commonstudents - Routing Test", () => {
     expect(typeof res.body).toBe('object');
     expect(res.body).toEqual({
       'students': [
-        "studenteshan@example.com",
-        "studenthon@example.com"
+        "studenteshan@example.com"
       ]});
     done();
   });
@@ -135,14 +134,13 @@ describe("POST /api/register Routing Test", () => {
 });
 
 describe("POST /api/suspend Routing Test", () => {
- 
   it("should return status code 204 with the student successfully suspended", async (done) => {
     let payload = {
       "student": "studenthon@example.com"
     }
-    const res = await request(app).post("/api/suspend").send(payload)
+    const res = await request(app).post("/api/suspend").send(payload);
     expect(res.status).toBe(204);
-    done()
+    done();
   });
 
   it("should return 404 error code as the student email is not registered", async (done) => {
@@ -201,50 +199,54 @@ describe("POST /api/retrievefornotifications Routing Test", () => {
     done();
   });
 
-  it("should return 404 error code", async () => {
+  it("should return 404 error code", async (done) => {
     let payload = {
       "teacher": "teacheryouyou@gmail.com",
       "notification": "hello Students! @studentasdasd@gmail.com and @studentdaniel@gmail.com"
     }
     expect.assertions(3);
-    const res = await request(app).post("/api/retrievefornotifications").send(payload)
-    expect(res.status).toBe(404)
-    expect(res.body).toHaveProperty('success', false)
-    expect(res.body).toHaveProperty('message', "Teacher Email Not Registered")
+    const res = await request(app).post("/api/retrievefornotifications").send(payload);
+    expect(res.status).toBe(404);
+    expect(res.body).toHaveProperty('success', false);
+    expect(res.body).toHaveProperty('message', "Teacher Email Not Registered");
+    done();
   })
 
-  it("should return 404 error code with no teacher submitted", async () => {
+  it("should return 404 error code with no teacher submitted", async (done) => {
     let payload = {
       "notification": "hello Students! @studentasdasd@gmail.com and @studentdaniel@gmail.com"
     }
     expect.assertions(3);
-    const res = await request(app).post("/api/retrievefornotifications").send(payload)
-    expect(res.status).toBe(404)
-    expect(res.body).toHaveProperty('success', false)
-    expect(res.body).toHaveProperty('message', "Teacher Email Not Found")
+    const res = await request(app).post("/api/retrievefornotifications").send(payload);
+    expect(res.status).toBe(404);
+    expect(res.body).toHaveProperty('success', false);
+    expect(res.body).toHaveProperty('message', "Teacher Email Not Found");
+    done();
   })
 
-  it("should return 404 error code with incorrect format for teacher email", async () => {
+  it("should return 404 error code with incorrect format for teacher email", async (done) => {
     let payload = {
       "teacher": "teachermelgmailcom",
       "notification": "hello Students! @studentasdasd@gmail.com and @studentdaniel@gmail.com"
     }
     expect.assertions(3);
-    const res = await request(app).post("/api/retrievefornotifications").send(payload)
-    expect(res.status).toBe(404)
-    expect(res.body).toHaveProperty('success', false)
-    expect(res.body).toHaveProperty('message', "Teacher Email Incorrect Format")
+    const res = await request(app).post("/api/retrievefornotifications").send(payload);
+    expect(res.status).toBe(404);
+    expect(res.body).toHaveProperty('success', false);
+    expect(res.body).toHaveProperty('message', "Teacher Email Incorrect Format");
+    done();
   })
 
-  it("should return 404 error code with no notification submitted", async () => {
+  it("should return 404 error code with no notification submitted", async (done) => {
     let payload = {
-      "teacher": "teachermel@gmail.com",
+      "teacher": "teachermel@gmail.com"
     }
     expect.assertions(3);
-    const res = await request(app).post("/api/retrievefornotifications").send(payload)
-    expect(res.status).toBe(404)
-    expect(res.body).toHaveProperty('success', false)
-    expect(res.body).toHaveProperty('message', "Notification Not Found")
-  })
+    const res = await request(app).post("/api/retrievefornotifications").send(payload);
+    expect(res.status).toBe(404);
+    expect(res.body).toHaveProperty('success', false);
+    expect(res.body).toHaveProperty('message', "Notification Not Found");
+    done();
+  });
 
 });

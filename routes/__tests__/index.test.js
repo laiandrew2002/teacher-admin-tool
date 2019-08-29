@@ -7,10 +7,11 @@ const app = express();
 
 index(app);
 
-describe("index route testing", () => {
-  test("Get the homepage should return status 200", async () => {
+describe("Home Page Route Test", () => {
+  it("should return 200 status code with API Running", async (done) => {
     const res = await request(app).get("/");
     expect(res.status).toBe(200);
-    expect(res.body).toEqual({status: "Teacher Administrative Tool API Running"})
+    expect(res.body).toEqual({status: "Teacher Administrative Tool API Running"});
+    done();
   });
 });

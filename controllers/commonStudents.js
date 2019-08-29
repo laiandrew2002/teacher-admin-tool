@@ -38,17 +38,15 @@ const commonStudents = async (req, res) => {
         ],
         attributes: ['id', 'email']
       })
-      //console.log("result: ", students.length)
-      const studentArray = students.map(e => e.dataValues.email);
+      let studentArray = students.map(e => e.dataValues.email);
       studentArrays.push(studentArray);
-      //console.log("array: ", studentArrays)
-  
-      //Find the common students among teachers
-      const commonStudentArray = await commonSet(studentArrays);
-      return res.jsonp({students: commonStudentArray});
     }
+    //Find the common students among teachers
+    const commonStudentArray = await commonSet(studentArrays);
+    return res.jsonp({ students: commonStudentArray });
+    
   } catch(error) {
-    //console.log(error)
+    console.error(error);
   }
 }
 

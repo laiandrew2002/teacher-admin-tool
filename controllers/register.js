@@ -43,7 +43,6 @@ const register = async (req, res) => {
       defaults:{email: teacherEmail}
     });
 
-    //console.log("insertTeacher: ", insertTeacher[0].dataValues.id)
     const teacherId = insertTeacher[0].dataValues.id;
       
     for( i in studentNamesArray ) {
@@ -51,7 +50,6 @@ const register = async (req, res) => {
         where: { name: studentNamesArray[i] },
         defaults: { email: studentEmailsArray[i], is_suspend: 0 }
       })
-      //console.log("insertStudent: ", insertStudent[0].dataValues.id)
 
       const studentId = insertStudent[0].dataValues.id;
       const insertrelation = await Teacher_Student.findOrCreate({
@@ -60,14 +58,15 @@ const register = async (req, res) => {
           students_id: studentId
         }
       });
-      //console.log("insert: ", insertrelation)
-      return res.status(204).jsonp();
+      if(insertStudent) {
+        return res.status(204).jsonp();
+      }
     }
   } catch (error) {
-    //console.log(error)
+    throw error;
   }
 }
 
 module.exports = {
-    register
+  register
 }
