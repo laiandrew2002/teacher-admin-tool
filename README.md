@@ -6,13 +6,13 @@ An API for the teachers to perform administrative functions for their students w
 
 The codebase is written entirely in JavaScript.
 
-The API is based on Node.js together [Express](https://expressjs.com/) and [MySQL](https://www.mysql.com/) and Unit Testing using [Jest](https://jestjs.io/)
+The API is based on Node.js together with [Express](https://expressjs.com/), [MySQL](https://www.mysql.com/) and Unit Testing using [Jest](https://jestjs.io/).
 
 ## Functionality
 
 - Register students under teacher.
 - Suspend a student.
-- Retrieve students' email registered under teachers.
+- Retrieve students' email registered under teacher(s).
 - Retrieve list of students can receive notifications from a teacher.
 
 ## How To Use
@@ -34,7 +34,7 @@ npm install
 
 #### Database Configuration 
 
-Open the file and setup the password for your root user for your machine MySQL database.
+Open the file and setup the **password** of your root user for your machine MySQL database.
 
 `/db/env.js`
 
@@ -60,7 +60,7 @@ const env = {
 }
 ```
 
-Kindly do the **Data Import** in your MySQL Workbench with sql file in the directory below :
+Kindly do the **Data Import** in your MySQL Workbench with the sql file in the directory below :
 
 `/db/db-mysql.sql`
 
@@ -77,7 +77,6 @@ npm start
 ```
 npm test
 ```
-
 
 
 ## Database
@@ -101,6 +100,8 @@ npm test
 
 #### Register Students
 
+The students will be registered under the teacher.
+
 Request body:
 
 ```
@@ -120,7 +121,9 @@ Status Code **204**
 
 #### Retrieve List of Students Under Teacher(s)
 
-Request by Passing teacher Query:
+It returns a list of students registered under the teacher in the query passed.
+
+Request by Passing *teacher* Query:
 
 ```
 /api/commonstudents?teacher=teachermel%40example.com
@@ -147,6 +150,8 @@ Response Body:
 
 #### Suspend a Student
 
+The student will be suspended and will not be able to receive notifications.
+
 Request Body:
 
 ```
@@ -160,6 +165,8 @@ Response:
 Status Code **204**
 
 #### Retrieve List of Students That Can Receive Notification 
+
+It returns a list of students that can receive notifications, which registered under the teacher or mentioned in the notifications with the character '@'.
 
 Request Body:
 
