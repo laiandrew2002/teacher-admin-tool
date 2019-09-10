@@ -58,10 +58,10 @@ const register = async (req, res) => {
           students_id: studentId
         }
       });
-      if(insertStudent) {
-        return res.status(204).jsonp();
-      }
     }
+    
+    return res.status(204).jsonp();
+    
   } catch (error) {
     throw error;
   }
