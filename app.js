@@ -4,6 +4,8 @@ const path = require('path');
 
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./routes/teacherAdminSwagger.json');
 
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
@@ -27,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 indexRouter(app);
 apiRouter(app);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 db.sequelize.sync({force: false}).then(() => {
   console.log('Tables created if do not exist }');

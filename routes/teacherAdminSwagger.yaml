@@ -1,0 +1,166 @@
+swagger: "2.0"
+info:
+  description: "An API for the teachers to perform administrative functions for their students where teachers and students are identified by their email addresses."
+  version: "1.0.0"
+  title: "Teacher Admin Tool"
+  
+  contact:
+    email: "laiandrew2002@gmail.com"
+  
+
+tags:
+- name: "register"
+  description: "Register students under a teacher"
+- name: "commonstudents"
+  description: "Retrieve students common register under teachers"
+- name: "suspend"
+  description: "Suspend a student"
+- name: "notification"
+  description: "Retrieve List of Students That Can Receive Notification"
+schemes:
+- "http"
+paths:
+  /api/register:
+    post:
+      tags:
+      - "register"
+      summary: "register students"
+      description: "register students under a teacher to the database relational tables."
+      operationId: "registerStudents"
+      consumes:
+        - application/json
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Students and Teacher to be added to the database"
+        required: true
+        schema:
+          $ref: "#/definitions/Register"
+      responses:
+        204:
+          description: "Successful Operation"
+        404:
+          description: "Bad Request"
+      
+  /api/commonstudents/:
+    get:
+      tags:
+      - "commonstudents"
+      summary: "retrieve students"
+      description: "retrieve common students under teachers from the database"
+      operationId: "commonStudents"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "teacher"
+        description: "Students under Teachers to return"
+        type: "string"
+        required: true
+      
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            $ref: "#/definitions/Common"
+        404:
+          description: "Bad Request"
+  
+  /api/suspend:
+    post:
+      tags:
+      - "suspend"
+      summary: "suspend student"
+      description: "suspend a student"
+      operationId: "suspendStudent"
+      consumes:
+        - application/json
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Students to be suspended"
+        required: true
+        schema:
+          $ref: "#/definitions/Suspend"
+      responses:
+        204:
+          description: "Successful Operation"
+        404:
+          description: "Bad Request"
+          
+  /api/retrievefornotifications:
+    post:
+      tags:
+      - "notification"
+      summary: "students receive notification"
+      description: "Retrieve List of Students That Can Receive Notification, who are registered under the teacher and not suspended"
+      operationId: "notificationStudent"
+      consumes:
+        - application/json
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Students to receive notification"
+        required: true
+        schema:
+          $ref: "#/definitions/ForNotification"
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            $ref: "#/definitions/Common"
+        404:
+          description: "Bad Request"
+  
+  
+definitions:
+  Register:
+      type: "object"
+      properties:
+        teacher:
+          $ref: "#/definitions/Teacher"
+        students:
+          $ref: "#/definitions/Students"
+  Common:
+    type: "object"
+    properties:
+      students:
+        $ref: "#/definitions/Students"
+  Suspend:
+    type: "object"
+    properties:
+      student:
+        $ref: "#/definitions/Student"
+  ForNotification:
+    type: "object"
+    properties:
+      teacher:
+        $ref: "#/definitions/Teacher"
+      notification:
+        $ref: "#/definitions/Notification"
+  Notification:
+    type: "string"
+  
+  Student:
+    type: "string"
+  
+  Students:
+    type: "array"
+    items:
+      type: "string"
+  
+  Teacher:
+    type: "string"
+      
+  
+  
+  
+externalDocs:
+  description: "Find out more about This"
+  url: "https://github.com/laiandrew2002/teacher-admin-tool"
