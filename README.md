@@ -85,6 +85,19 @@ npm test
 
 ![](https://github.com/laiandrew2002/teacher-admin-tool/blob/master/admin-tool-schema.PNG)
 
+## API Documentation
+
+![](https://swagger.io/swagger/media/assets/images/swagger_logo.svg =800x230)
+
+Swagger API Documentation UI is implemented in the project for easy understanding of the API. 
+It can also work as a tool to test on the API.
+
+#### Swagger API Documentation URL
+
+URL: http://localhost:3000/api-docs
+
+![](https://github.com/laiandrew2002/teacher-admin-tool/blob/master/swaggerScreen.PNG)
+
 ## API Routes:
 
 *Host*: localhost
