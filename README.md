@@ -87,7 +87,7 @@ npm test
 
 ## API Documentation
 
-![](https://swagger.io/swagger/media/assets/images/swagger_logo.svg =800x230)
+![](https://swagger.io/swagger/media/assets/images/swagger_logo.svg)
 
 Swagger API Documentation UI is implemented in the project for easy understanding of the API. 
 It can also work as a tool to test on the API.
